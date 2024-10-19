@@ -1,0 +1,36 @@
+{
+  "name": "solito-with-tailwind",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "apps/*/*"
+  ],
+  "devDependencies": {
+    "@types/react": "^18.2.21",
+    "@types/react-native": "^0.72.2",
+    "eslint": "^8.21.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.4",
+    "turbo": "^1.4.2",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "native": "cd apps/expo && expo start --tunnel",
+    "next": "cd apps/next && npm run dev",
+    "header": "cd apps/web/header-mfe && npm run dev",
+    "footer": "cd apps/web/footer-mfe && npm run dev",
+    "static": "cd apps/web/static-mfe && npm run dev",
+    "root": "cd apps/web/root-mfe && npm run dev",
+    "web": "npm-run-all --parallel header footer static root"
+  },
+  "resolutions": {
+    "metro": "~0.76.7",
+    "metro-resolver": "~0.76.7"
+  },
+  "nohoist": [
+    "**/expo-router",
+    "**/expo-router/**"
+  ]
+}
