@@ -5,7 +5,7 @@ const SharedHeader = () => {
     <header>
         <div className="bg-themered relative flex flex-col items-center justify-center p-3 text-white md:flex-row">
         <span className="static bottom-0 right-3 top-0 flex items-center text-sm md:absolute">
-                <a className="mr-2 hidden sm:block" href="#">Enable Accessibility</a>
+                <a className="mr-2 hidden sm:block" href="#">Enable Acc</a>
                 <Image src="http://localhost:3001/accessibility.svg" alt="accessibility" width={26} height={26} />
             </span>
             <h6 className="mt-3 text-center text-sm md:mt-0">WOW DAYS are back! Save up to 40% off* the best tech, home, toys & more!<a className="ms-2 font-bold" href="#">Shop Now</a></h6>

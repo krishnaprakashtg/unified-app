@@ -1,6 +1,19 @@
 /** @type {import('next').NextConfig} */ 
 import { NextFederationPlugin } from '@module-federation/nextjs-mf'; 
+import { withExpo } from '@expo/next-adapter'
+
 const nextConfig = {
+  reactStrictMode: false,
+  transpilePackages: [
+    'react-native',
+    'react-native-web',
+    'solito',
+    'moti',
+    'app',
+    'react-native-reanimated',
+    'nativewind',
+    'react-native-gesture-handler',
+  ],
   images: { 
     remotePatterns: [
       {
@@ -12,6 +25,11 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'localhost', 
         port: '3003',
+        pathname: '/**', // Match all images from the domain
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.dummyjson.com', 
         pathname: '/**', // Match all images from the domain
       },
     ],
@@ -35,4 +53,5 @@ const nextConfig = {
   } 
 };
 
-export default nextConfig;
+// export default nextConfig;
+export default withExpo(nextConfig);
