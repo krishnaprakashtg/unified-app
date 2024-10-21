@@ -1,7 +1,14 @@
-import { getBJSProducts, getProducts } from 'app/api/products'
+import { getBJSProducts } from 'app/api/products'
 import { BJSProduct } from 'app/types/product'
-import Image from 'next/image'
 import { View } from 'app/design/view'
+import { useState, useEffect } from 'react'
+
+import { Text } from 'app/design/typography'
+import { SolitoImage } from 'solito/image'
+import { TouchableOpacity, ScrollView, Platform } from 'react-native'
+import { styled } from 'nativewind'
+
+const StyledTouchableOpacity = styled(TouchableOpacity)
 
 const renderStars = (rating: number) => {
   const fullStars = Math.floor(rating)
@@ -9,7 +16,7 @@ const renderStars = (rating: number) => {
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0)
 
   return (
-    <div className="flex">
+    <View className="flex-row">
       {/* Full Stars */}
       {[...Array(fullStars)].map((_, index) => (
         <svg
@@ -67,136 +74,143 @@ const renderStars = (rating: number) => {
           />
         </svg>
       ))}
-    </div>
+    </View>
   )
 }
 
 const ProductItem = ({ product }: { product: BJSProduct }) => {
   console.log(product)
   return (
-    <div className="product-card bg- relative max-w-xs overflow-hidden bg-white p-4">
-      <div className="mb-4 flex items-center justify-between">
+    <View className="product-card relative max-w-xs overflow-hidden bg-white p-4">
+      <View className="mb-4 flex flex-row items-center justify-between">
         {product.badgeStatus ? (
-          <span className="border border-[#4b8510] px-2 py-1 text-xs font-semibold text-[#4b8510]">
+          <Text className="border border-[#4b8510] px-2 py-1 text-xs font-semibold text-[#4b8510]">
             {product.badgeStatus}
-          </span>
+          </Text>
         ) : (
-          <span></span>
+          <Text></Text>
         )}
-        <button
+        <StyledTouchableOpacity
           aria-label="Favourite"
           className="text-gray-500 hover:text-red-500"
         >
-          <Image
+          <SolitoImage
             alt="faviourite"
             src="https://www.bjs.com/prod/digital-mfe-shared/09272024180554-Release-shared-micro-frontend-169/2d083fde0a5839ae7a8b.svg"
             width={20}
             height={20}
           />
-        </button>
-      </div>
+        </StyledTouchableOpacity>
+      </View>
 
-      <div className="mb-4">
-        <Image
+      <View className="mb-4">
+        <SolitoImage
           src={product.productImageURL}
           alt="Product Image"
-          className="w-full object-cover"
           width={400}
           height={400}
         />
-      </div>
+      </View>
 
-      <div className="mb-4 flex justify-end">
-        <button className="rounded-md bg-[#cc0033] px-2 py-1 text-white">
+      <View className="mb-4 flex justify-end">
+        <StyledTouchableOpacity className="self-end rounded-md bg-[#cc0033] px-2 py-1 text-white">
           + ADD
-        </button>
-      </div>
+        </StyledTouchableOpacity>
+      </View>
 
-      <div>
-        <span className="font-semibold text-[#4b8510]">
-          <sup>$</sup>
+      <View className="mb-1 flex-row items-baseline">
+        <Text className="font-semibold text-[#4b8510]">
+          <Text className="relative -top-1">$</Text>
           {product.salePrice.toString().split('.')[0]}
-          <sup>{product.salePrice.toString().split('.')[1]}</sup>
-        </span>
-        <span className="ml-2 text-xs text-[#303030] line-through">
+          <Text className="relative -top-1">
+            {product.salePrice.toString().split('.')[1]}
+          </Text>
+        </Text>
+        <Text className="ml-2 text-xs text-[#303030] line-through">
           ${product.price}
-        </span>
-      </div>
-      <div className="mb-1 flex">
-        <Image
+        </Text>
+      </View>
+
+      <View className="mb-1 flex-row">
+        <SolitoImage
           src="https://www.bjs.com/prod/digital-mfe-shared/09272024180554-Release-shared-micro-frontend-169/49859a7b1802d5062058.svg"
           alt=""
           width={20}
           height={20}
         />
-        <p className="text-sm text-gray-500">
-          $3 (10%) Off <span className="text-red-700"> Instant Savings</span>
-        </p>
-      </div>
+        <Text className="text-sm text-gray-500">
+          $3 (10%) Off <Text className="text-red-700"> Instant Savings</Text>
+        </Text>
+      </View>
 
-      <div className="mb-2">
-        <h3 className="font-semibold text-gray-800">{product.itemName}</h3>
-      </div>
+      <View className="mb-2">
+        <Text className="font-bold text-gray-800">{product.itemName}</Text>
+      </View>
 
       {product?.rating && (
-        <div className="mb-4">{renderStars(product.rating || 0)}</div>
+        <View className="mb-4">{renderStars(product.rating || 0)}</View>
       )}
 
-      <ul className="space-y-1 text-sm text-gray-600">
+      <View className="space-y-1 text-sm text-gray-600">
         {product.available_pickup && (
-          <li className="flex">
-            <Image
-              className="mr-2"
+          <View className="flex-row">
+            <SolitoImage
               src="https://www.bjs.com/prod/digital-mfe-shared/09272024180554-Release-shared-micro-frontend-169/9d0c0d58b92a0559ba9f.svg"
               alt=""
-              width={20}
-              height={20}
+              width={12}
+              height={13}
             />
-            Pickup at Willoughby
-          </li>
+            <Text className="ml-2">Pickup at Willoughby</Text>
+          </View>
         )}
         {product.available_sdd && (
-          <li className="flex">
-            <Image
-              className="mr-2"
+          <View className="flex-row">
+            <SolitoImage
               src="https://www.bjs.com/prod/digital-mfe-shared/09272024180554-Release-shared-micro-frontend-169/9d0c0d58b92a0559ba9f.svg"
               alt=""
-              width={20}
-              height={20}
+              width={12}
+              height={13}
             />
-            Delivery to
-          </li>
+            <Text className="ml-2">Delivery to</Text>
+          </View>
         )}
         {product.available_shipping && (
-          <li className="flex">
-            <Image
-              className="mr-2"
+          <View className="flex-row">
+            <SolitoImage
               src="https://www.bjs.com/prod/digital-mfe-shared/09272024180554-Release-shared-micro-frontend-169/5109257553fde1bda870.svg"
               alt=""
-              width={20}
-              height={20}
+              width={12}
+              height={13}
             />
-            Shipping
-          </li>
+            <Text className="ml-2">Shipping</Text>
+          </View>
         )}
-      </ul>
-    </div>
+      </View>
+    </View>
   )
 }
 
-const Products = ({ products }: { products: [BJSProduct] }) => {
+const BJSProductsHome = () => {
+  const [products, setProducts] = useState<BJSProduct[]>([])
+  useEffect(() => {
+    getBJSProducts().then((data) => {
+      setProducts(data)
+    })
+  }, [])
+
   return (
-    <div className="grid grid-cols-4 gap-0 pb-6">
-      {products.map((p) => (
-        <ProductItem key={p.itemName} product={p} />
-      ))}
-    </div>
+    <View className="grid grid-cols-4 gap-0 pb-6">
+      {Platform.OS === 'web' ? (
+        products.map((p) => <ProductItem key={p.itemName} product={p} />)
+      ) : (
+        <ScrollView>
+          {products.map((p) => (
+            <ProductItem key={p.itemName} product={p} />
+          ))}
+        </ScrollView>
+      )}
+    </View>
   )
 }
 
-export async function getStaticProps() {
-  const products = await getBJSProducts()
-  return { props: { products } }
-}
-
-export default Products
+export default BJSProductsHome

@@ -1,6 +1,7 @@
 // import { HomeScreen } from 'app/features/home/screen'
-import ProductHomeScreen from 'app/features/products/product-home-screen'
+// import ProductHomeScreen from 'app/features/products/product-home-screen'
 
+import BJSProductsHome from 'app/features/products/bjs-products'
 export default function Home() {
-  return <ProductHomeScreen/>
+  return <BJSProductsHome/>
 }
