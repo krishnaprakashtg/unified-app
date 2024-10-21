@@ -15,6 +15,16 @@ const nextConfig = {
         pathname: '/**', // Match all images from the domain
       },
       {
+        protocol: 'https',
+        hostname: 'bjs.com', 
+        pathname: '/**', // Match all images from the domain
+      },
+      {
+        protocol: 'https',
+        hostname: 's7d6.scene7.com', 
+        pathname: '/**', // Match all images from the domain
+      },
+      {
         protocol: 'http',
         hostname: 'localhost', 
         port: '3003',

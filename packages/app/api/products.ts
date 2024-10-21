@@ -1,5 +1,7 @@
-import { Product } from "app/types/product";
+import { Product, BJSProduct } from "app/types/product";
 const API_URL = `https://dummyjson.com/products`
+
+import bjsProducts from "../api/products.json"
 
 export const getProducts = async (): Promise<Product[]> => {
 
@@ -20,4 +22,8 @@ export const getProduct = async (id: number): Promise<Product> => {
 
     return data || [];
 
+}
+
+export const getBJSProducts = async (): Promise<BJSProduct[]> => {
+    return bjsProducts || [];
 }
