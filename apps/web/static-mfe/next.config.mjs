@@ -1,6 +1,18 @@
 /** @type {import('next').NextConfig} */
 import { NextFederationPlugin } from "@module-federation/nextjs-mf";
+import { withExpo } from '@expo/next-adapter'
 const nextConfig = {
+  reactStrictMode: false,
+  transpilePackages: [
+    'react-native',
+    'react-native-web',
+    'solito',
+    'moti',
+    'app',
+    'react-native-reanimated',
+    'nativewind',
+    'react-native-gesture-handler',
+  ],
   webpack(config, {isServer}) {
     config.output.publicPath = 'auto';
     config.plugins.push(
@@ -26,4 +38,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withExpo(nextConfig);

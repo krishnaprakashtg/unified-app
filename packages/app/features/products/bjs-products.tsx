@@ -199,7 +199,7 @@ const BJSProductsHome = () => {
   }, [])
 
   return (
-    <View className="grid grid-cols-4 gap-0 pb-6">
+    <View className="grid grid-cols-1 gap-0 pb-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {Platform.OS === 'web' ? (
         products.map((p) => <ProductItem key={p.itemName} product={p} />)
       ) : (

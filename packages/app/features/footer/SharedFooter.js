@@ -1,5 +1,5 @@
 import Image from "next/image";
-import 'tailwindcss/tailwind.css';
+// import 'tailwindcss/tailwind.css';
 
 const SharedFooter = () => {
   return (
